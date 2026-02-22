@@ -1,1 +1,32 @@
+import numpy as np
+import matplotlib.pyplot as plt
+f1 = 100
+f2 = 50
+f3 = 1000
+ftoplam = 1150
 
+def plot_signal(ax, f, color, label):
+    T = 1/f
+    t = np.linspace(0, 3*T, 1000)
+    s = np.sin(2 * np.pi * f * t)
+    ax.plot(t, s, color=color)
+    ax.set_title(f'{label} = {f} Hz (3 Periyot)')
+    ax.set_ylabel('Genlik')
+    ax.grid(True)
+
+fig, axes = plt.subplots(4, 1, figsize=(10, 15))
+
+plot_signal(axes[0], f1, 'blue', 'f1')
+plot_signal(axes[1], f2, 'green', 'f2')
+plot_signal(axes[2], f3, 'red', 'f3')
+
+t_sum = np.linspace(0, 3*(1/f2), 5000)
+s_sum = np.sin(2*np.pi*f1*t_sum) + np.sin(2*np.pi*f2*t_sum) + np.sin(2*np.pi*f3*t_sum)
+axes[3].plot(t_sum, s_sum, color='purple')
+axes[3].set_title('Toplam İşaret (f1 + f2 + f3)')
+axes[3].set_xlabel('Zaman (s)')
+axes[3].set_ylabel('Genlik')
+axes[3].grid(True)
+
+plt.tight_layout()
+plt.show()
